@@ -15,31 +15,30 @@ import java.util.List;
 public class CustomerDao {
 
     public Customer findById(Long id) {
-        Customer customer = null;
         try (Connection connection = ConnectionPostgresSql.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM customer WHERE id = ?;");
             stmt.setLong(1, id);
             ResultSet resultSet = stmt.executeQuery();
+            Customer customer = null;
             if (resultSet.next()) {
                 customer = new Customer();
                 customer.setId(resultSet.getLong("id"));
                 customer.setName(resultSet.getString("name"));
                 customer.setCpf(resultSet.getString("cpf"));
-                return customer;
             }
+            return customer;
         } catch (SQLException e) {
-            System.out.println("Contato não encontrado: " + e);
+            throw new CustomerNotFoundException();
         }
-        return customer;
     }
 
     public List<Customer> findByName(String name) {
-        Customer customer = null;
         List<Customer> customers = new ArrayList<>();
         try (Connection connection = ConnectionPostgresSql.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM customer WHERE name LIKE ?;");
             stmt.setString(1, "%" + name + "%");
             ResultSet resultSet = stmt.executeQuery();
+            Customer customer = null;
             if (resultSet.next()) {
                 customer = new Customer();
                 customer.setId(resultSet.getLong("id"));
@@ -47,10 +46,10 @@ public class CustomerDao {
                 customer.setCpf(resultSet.getString("cpf"));
                 customers.add(customer);
             }
+            return customers;
         } catch (SQLException e) {
             throw new CustomerNotFoundException();
         }
-        return customers;
     }
 
     public Customer insertCostumer(Customer customer) {
@@ -59,20 +58,20 @@ public class CustomerDao {
             statement.setString(1, customer.getName());
             statement.setString(2, customer.getCpf());
             statement.executeUpdate();
+            return customer;
         } catch (SQLException e) {
             throw new ErrorActionCustomerException("Error saving customer !");
         }
-        return customer;
     }
 
-    public boolean updateCostumer(Customer customer) {
+    public Customer updateCostumer(Customer customer) {
         try (Connection connection = ConnectionPostgresSql.getConnection()) {
             PreparedStatement statement = connection.prepareStatement("UPDATE customer SET name = ?, cpf = ? WHERE id = ?; ");
             statement.setString(1, customer.getName());
             statement.setString(2, customer.getCpf());
             statement.setLong(3, customer.getId());
             statement.executeUpdate();
-            return true;
+            return customer;
         } catch (SQLException e) {
             throw new ErrorActionCustomerException("Error update customer !");
         }

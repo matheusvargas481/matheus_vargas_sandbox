@@ -2,9 +2,11 @@ package com.matheusvargas481.spring_bootpostgresqldocker.service;
 
 import com.matheusvargas481.spring_bootpostgresqldocker.dao.CustomerDao;
 import com.matheusvargas481.spring_bootpostgresqldocker.domain.Customer;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class CustomerService {
     private CustomerDao customerDao;
 
@@ -18,7 +20,7 @@ public class CustomerService {
 
     public List<Customer> findByName(String name) { return customerDao.findByName(name); }
 
-    public boolean updateCustomer(Customer customer) { return customerDao.updateCostumer(customer); }
+    public Customer updateCustomer(Customer customer) { return customerDao.updateCostumer(customer); }
 
     public boolean deleteCustomer(Customer customer) { return customerDao.deleteCostumer(customer); }
 }
