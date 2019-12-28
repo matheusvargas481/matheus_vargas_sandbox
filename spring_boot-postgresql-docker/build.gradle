@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-	compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.2.9'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-web'

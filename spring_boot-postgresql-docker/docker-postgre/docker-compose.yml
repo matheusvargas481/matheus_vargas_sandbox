@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "9998:5432"
+    volumes:
+      - /home/vargas/Documents/matheus_vargas_sandbox/spring_boot-postgresql-docker/PostgreSQL:/var/lib/postgresql/data 
+    expose: 
+      - "9998"
+    networks:
+      - postgres-compose-network
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "matheus.vargas@ilegra.com"
+      PGADMIN_DEFAULT_PASSWORD: "noah"
+    ports:
+      - "9999:80"
+    depends_on:
+      - postgres
+    networks:
+      - postgres-compose-network
+
+networks: 
+  postgres-compose-network:
+    driver: bridge

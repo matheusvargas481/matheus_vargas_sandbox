@@ -3,7 +3,10 @@ package com.matheusvargas481.spring_bootpostgresqldocker.service;
 import com.matheusvargas481.spring_bootpostgresqldocker.domain.Customer;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 
+@SpringJUnitConfig
 public class CustomerServiceTest {
     private CustomerService costumerService;
     private Customer customer;
