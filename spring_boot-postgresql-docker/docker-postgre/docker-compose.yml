@@ -8,7 +8,7 @@ services:
     ports:
       - "9998:5432"
     volumes:
-      - /home/vargas/Documents/matheus_vargas_sandbox/spring_boot-postgresql-docker/PostgreSQL:/var/lib/postgresql/data 
+      - /home/ilegra/Documents/matheus_vargas_sandbox/spring_boot-postgresql-docker/PostgreSQL:/var/lib/postgresql/data 
     expose: 
       - "9998"
     networks:
